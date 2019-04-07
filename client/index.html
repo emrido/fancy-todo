@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="google-signin-client_id" content="563252494522-hccd5ve2teth35uns0s1hckah9dqr0nb.apps.googleusercontent.com">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Domine|Montserrat" rel="stylesheet">
+    <link rel="stylesheet" href="./css/animation.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+
+    <title>Todo</title>
+</head>
+
+<body>
+    <div class="container">
+        <nav>
+            <div class="nav-wrapper animated fadeInDown">
+                <a href="#" onclick="show_homepage()" class="brand-logo right">Todo_</a>
+                <ul id="nav-mobile" class="left hide-on-med-and-down">
+                    <li><a href="#" id="home" class="waves-effect">Home</a></li>
+                    <li><a href="#" onclick="logout()" class="waves-effect">Log out</a></li>
+                </ul>
+                <ul id='login-nav'>
+                    <li><a href="#" onclick="show_login_form()" class="waves-effect">Log in</a></li>
+                    <li><a href="#" onclick="show_register_form()" class="waves-effect">Register</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <div id="add-todo-form"></div>
+        <div id="register-form"></div>
+        <div id="login-form"></div>
+        <div id="homepage"></div>
+        <div class="row" id="todo-list" style="margin-top: 2rem;"></div>
+    </div>
+
+    <div id="addbtn" class="fixed-action-btn">
+        <a class="btn-floating btn-large waves-effect waves-light animated slideInRight"><i class="material-icons">add</i></a>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="./js/main.js"></script>
+</body>
+
+</html>

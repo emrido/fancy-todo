@@ -1,0 +1,89 @@
+body,
+nav {
+  background-color: black;
+}
+
+h1 {
+  color: antiquewhite;
+}
+
+html {
+  font-family: "Domine", serif;
+}
+
+nav li > a {
+  background-color: black;
+  font-family: "Montserrat", sans-serif;
+  color: antiquewhite;
+}
+
+nav li > a:hover {
+  border-bottom: 0.05rem solid antiquewhite;
+}
+
+input, label, textarea {
+  font-family: "Montserrat", sans-serif;
+  color: antiquewhite;
+}
+
+header > h1 {
+  margin-top: 10rem;
+  font-weight: 400;
+  display: inline-block;
+  background-image: linear-gradient(to right, antiquewhite, rgba(245, 237, 192, 0.966));
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.datepicker-date-display {
+  background-color: black;
+  border-left: 0.1rem solid;
+}
+
+.select-dropdown, .dropdown-content {
+  color: black;
+}
+
+.datepicker-cancel, .datepicker-done {
+  color: black;
+}
+
+.card {
+  color: antiquewhite;
+  background-color: black;
+  border-width: 0.05rem;
+  border-style: solid;
+  border-color: antiquewhite;
+}
+
+.card .card-reveal {
+  color: black;
+  background-color: antiquewhite;
+  border-width: 0.05rem;
+  border-style: solid;
+  border-color: antiquewhite;
+}
+
+.card-reveal > p {
+  font-family: "Montserrat", sans-serif;
+  color: black;
+}
+
+.card-title {
+  color: antiquewhite;
+}
+
+.btn-floating i {
+    background-color: antiquewhite;
+    color: black;
+}
+
+.btn-small {
+  background-color: antiquewhite;
+  color: black;
+}
+
+.btn-small:hover {
+  background-color: black;
+  color:antiquewhite;
+}
