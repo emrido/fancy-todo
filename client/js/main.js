@@ -318,6 +318,28 @@ function login() {
         })
 }
 
+function onSignIn(googleUser) {
+    event.preventDefault()
+    const id_token = googleUser.getAuthResponse().id_token;
+
+    $
+        .ajax({
+            url: url+ '/users/google-login', 
+            headers: { 
+                token: id_token
+            }
+        })
+        .done((response) => {
+            localStorage.setItem('token', response)
+            
+            postLogin()
+        })
+        .fail((jqXHR, textstatus) => {
+            swal(jqXHR.responseJSON.message)
+        })
+
+}
+
 function show_homepage() {
 
     $('#add-todo-form')
@@ -339,7 +361,10 @@ function show_homepage() {
 }
 
 function logout() {
-    localStorage.removeItem('token');
+    const auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+        localStorage.clear()
+    });
 
     $('#todo-list')
         .empty()
