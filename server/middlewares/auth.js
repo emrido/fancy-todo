@@ -9,7 +9,7 @@ module.exports = {
             if (token) {
                 const decoded = jwt.verify(req.headers.token, process.env.JWT_SECRET)
                 req.authenticatedUser = decoded
-                console.log(decoded)
+
                 if (process.env.NODE_ENV === 'test') {
                     next();
                 } else {
@@ -73,7 +73,6 @@ module.exports = {
                 }
             })
             .catch(err => {
-                console.log(err)
                 res
                     .status(500)
                     .json({

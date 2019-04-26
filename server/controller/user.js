@@ -20,7 +20,6 @@ class UserController {
     }
 
     static login(req, res) {
-        console.log('hoii')
         User
             .findOne({
                 email: req.body.email

@@ -330,22 +330,34 @@ function show_homepage() {
 
 function logout() {
     const auth2 = gapi.auth2.getAuthInstance();
-    auth2
-        .signOut()
-        .then(function () {
-            localStorage.clear()
-            $('#todo-list')
-                .empty()
+    if (auth2) {
+        auth2
+            .signOut()
+            .then(function () {
+                localStorage.clear()
+                $('#todo-list')
+                    .empty()
 
-            $('#login-nav')
-                .show()
+                $('#login-nav')
+                    .show()
 
-            preLogin()
-        })
-        .catch(err => {
-            localStorage.clear()
-            console.log(err)
-        })
+                preLogin()
+            })
+            .catch(err => {
+                localStorage.clear()
+                console.log(err)
+            })
+    } else {
+        localStorage.clear()
+
+        $('#todo-list')
+            .empty()
+
+        $('#login-nav')
+            .show()
+
+        preLogin()
+    }
 }
 
 function postLogin() {
