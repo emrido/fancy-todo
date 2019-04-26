@@ -20,6 +20,7 @@ class UserController {
     }
 
     static login(req, res) {
+        console.log('hoii')
         User
             .findOne({
                 email: req.body.email
@@ -56,7 +57,7 @@ class UserController {
     static verify(req, res) {
         let payload;
         let token;
-
+        
         client
             .verifyIdToken({
                 idToken: req.body.token,
@@ -65,7 +66,7 @@ class UserController {
             .then(ticket => {
                 payload = ticket.getPayload();
                 const userid = payload['sub'];
-
+                
                 return User.findOne({ 
                     email: payload.email
                 })
@@ -76,7 +77,7 @@ class UserController {
                         { 
                             name: payload.name,
                             email: payload.email,
-                            password: qwascvnl123
+                            password: 'qwascvnl123'
                         }
                     )
                 } else {
@@ -86,7 +87,7 @@ class UserController {
             .then(newUser => {
                 token = jwt.sign(
                     { 
-                        id: newUser._id,
+                        _id: newUser._id,
                         name: newUser.name 
                     }
                 , process.env.JWT_SECRET)

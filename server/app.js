@@ -7,7 +7,7 @@ const port = process.env.PORT || 3000;
 const routes = require('./routes');
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/todo', { useNewUrlParser: true })
+mongoose.connect(`mongodb+srv://todo-admin:todo-admin@porto-bwlio.mongodb.net/todo?retryWrites=true`, { useNewUrlParser: true })
 mongoose.set('useCreateIndex', true)
 
 app.use(cors());

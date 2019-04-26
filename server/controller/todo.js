@@ -8,7 +8,7 @@ class TodoController {
                 owner: req.authenticatedUser._id
             })
             .then(todos => {
-                res.json(todos)
+                res.status(200).json(todos)
             })
             .catch(err => {
                 res.status(500).json({
@@ -37,7 +37,7 @@ class TodoController {
     static deleteTodo(req, res) {
         Todo
             .deleteOne({
-                _id: ObjectId(req.body._id),
+                _id: ObjectId(req.params.id),
                 owner: req.authenticatedUser._id
             })
             .then(result => {
@@ -62,7 +62,7 @@ class TodoController {
         Todo
             .updateOne({
                 owner: req.authenticatedUser._id,
-                _id: ObjectId(req.body._id)
+                _id: ObjectId(req.params.id)
             }, {
                 $set: req.body
             })

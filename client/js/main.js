@@ -3,6 +3,13 @@ const url = 'http://localhost:3000/';
 $(document).ready(function () {
     preLogin()
 
+
+    $('#login-form')
+        .click(() => {
+            $('#login-form')
+                .show()
+        })
+
     if (localStorage.getItem('token')) {
         postLogin()
     }
@@ -29,9 +36,7 @@ function show_add_todo_form() {
                     <label for="due_date">Due Date</label>
                 </div>
                 <div class="input-field col s6 offset-s3">
-                    <button type="submit" onclick="addTodo()">
-                        <a class="waves-effect waves-light btn-small">Button</a>
-                    </button>
+                    <a class="waves-effect waves-light btn-small" onclick="addTodo()">Create Todo</a>
                 </div>
             </div>
         </form>
@@ -61,7 +66,7 @@ function todo_list() {
 
     $
         .ajax({
-            url: url + 'todos/list',
+            url: url + 'todos/',
             method: 'get',
             headers: {
                 token: localStorage.getItem('token')
@@ -129,9 +134,7 @@ function show_register_form() {
                     <label for="password">Password</label>
                 </div>
                 <div class="input-field col s6 offset-s3">
-                    <button type="submit" onclick="register()">
-                        <a class="waves-effect waves-light btn-small">Register</a>
-                    </button>
+                    <a class="waves-effect waves-light btn-small" onclick="register()">Register</a>
                 </div>
             </div>
         </form>
@@ -140,9 +143,7 @@ function show_register_form() {
     $('#homepage')
         .empty()
     $('#login-form')
-        .empty()
-    $('#login-form')
-        .empty()
+        .hide()
     $('#register-form')
         .empty()
         .append(raw)
@@ -150,40 +151,12 @@ function show_register_form() {
 }
 
 function show_login_form() {
-    const raw = `    
-    <div class="row animated fadeInUp" style="margin-top: 5rem">
-        <form class="col s12">
-            <div class="row">
-                <div class="col s6 offset-s3">
-                    <h1>Login</h1>
-                </div>
-                <div class="input-field col s6 offset-s3">
-                    <input id="email" type="email" class="materialize-email"></input>
-                    <label for="email">Email</label>
-                </div>
-                <div class="input-field col s6 offset-s3">
-                    <input id="password" type="password" class="password">
-                    <label for="password">Password</label>
-                </div>
-                <div class="input-field col s6 offset-s3">
-                    <button type="submit" onclick="login()">
-                        <a class="waves-effect waves-light btn-small">Login</a>
-                    </button>
-                </div>
-                <div class="input-field col s6 offset-s3">
-                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
-                </div>
-            </div>
-        </form>
-    </div>        
-    `
     $('#homepage')
         .empty()
     $('#register-form')
         .empty()
     $('#login-form')
-        .empty()
-        .append(raw)
+        .show()
 }
 
 function deleteTodo(id) {
@@ -198,13 +171,10 @@ function deleteTodo(id) {
             if (willDelete) {
                 $
                     .ajax({
-                        url: url + `todos/delete`,
+                        url: url + `todos/${id}`,
                         method: 'delete',
                         headers: {
                             token: localStorage.getItem('token')
-                        },
-                        data: {
-                            _id: id
                         }
                     })
                     .done(response => {
@@ -227,7 +197,7 @@ function addTodo() {
 
     $
         .ajax({
-            url: url + `todos/add`,
+            url: url + `todos/`,
             method: 'post',
             headers: {
                 token: localStorage.getItem('token')
@@ -237,7 +207,6 @@ function addTodo() {
             }
         })
         .done(response => {
-            console.log(response)
             todo_list();
         })
         .fail((jqXHR, textstatus) => {
@@ -252,13 +221,12 @@ function updateTodo(id, status) {
 
     $
         .ajax({
-            url: url + `todos/update`,
+            url: url + `todos/${id}`,
             method: 'put',
             headers: {
                 token: localStorage.getItem('token')
             },
             data: {
-                _id: id,
                 status: status
             }
         })
@@ -266,7 +234,6 @@ function updateTodo(id, status) {
             todo_list();
         })
         .fail((jqXHR, textstatus) => {
-            console.log(jqXHR)
             swal(jqXHR.responseJSON.message)
         })
 }
@@ -324,14 +291,15 @@ function onSignIn(googleUser) {
 
     $
         .ajax({
-            url: url+ '/users/google-login', 
-            headers: { 
+            url: url + 'users/google-login',
+            method: 'post',
+            data: {
                 token: id_token
             }
         })
         .done((response) => {
             localStorage.setItem('token', response)
-            
+
             postLogin()
         })
         .fail((jqXHR, textstatus) => {
@@ -349,7 +317,7 @@ function show_homepage() {
     $('#homepage')
         .empty()
     $('#login-form')
-        .empty()
+        .hide()
     $('#register-form')
         .empty()
     $('#homepage')
@@ -362,17 +330,22 @@ function show_homepage() {
 
 function logout() {
     const auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-        localStorage.clear()
-    });
+    auth2
+        .signOut()
+        .then(function () {
+            localStorage.clear()
+            $('#todo-list')
+                .empty()
 
-    $('#todo-list')
-        .empty()
+            $('#login-nav')
+                .show()
 
-    $('#login-nav')
-        .show()
-        
-    preLogin()
+            preLogin()
+        })
+        .catch(err => {
+            localStorage.clear()
+            console.log(err)
+        })
 }
 
 function postLogin() {
@@ -380,7 +353,7 @@ function postLogin() {
         .empty()
 
     $('#login-form')
-        .empty()
+        .hide()
 
     $('#nav-mobile')
         .show()
